@@ -82,7 +82,10 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.initContainer.image.repository }}:{{ .Values.initContainer.image.tag }}"
           imagePullPolicy: {{ .Values.initContainer.image.pullPolicy }}
-          command: ["bash", "-c", "cp  -rfv /data/mappings /home/wiremock/storage/mappings"]
+          command:
+          - bash
+          - -c
+          - find /data/mappings  -type f -name "*.json" -exec cp {} /home/wiremock/storage/mappings/ \;
           resources:
             {{- toYaml .Values.initContainer.resources | nindent 12 }}
           volumeMounts:
@@ -100,7 +103,10 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.initContainer.image.repository }}:{{ .Values.initContainer.image.tag }}"
           imagePullPolicy: {{ .Values.initContainer.image.pullPolicy }}
-          command: ["bash", "-c", "cp  -rfv /data/responses /home/wiremock/storage/__files"]
+          command:
+          - bash
+          - -c
+          - find /data/responses -type f -name "*.json" -exec cp {} /home/wiremock/storage/__files/ \;
           resources:
             {{- toYaml .Values.initContainer.resources | nindent 12 }}
           volumeMounts:

@@ -56,6 +56,8 @@ extraInitContainers: []
 
 deploymentStrategy: {}
 # type: Recreate
+deployment:
+  annotations: {}
 
 # Load mappings from the templated configmap
 mappingsFromConfigmap: true
